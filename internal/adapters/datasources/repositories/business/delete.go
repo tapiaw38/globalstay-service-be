@@ -7,7 +7,7 @@ import (
 )
 
 func (r *repository) Delete(ctx context.Context, id string) (string, error) {
-	result, err := r.client.GetCollection().DeleteOne(ctx, bson.M{"_id": id})
+	result, err := r.client.DeleteOne(ctx, bson.M{"_id": id})
 	if err != nil {
 		return "", err
 	}
