@@ -13,6 +13,7 @@ type Usecases struct {
 
 type Business struct {
 	CreateUsecase business.CreateUsecase
+	UpdateUsecase business.UpdateUsecase
 	ListUsecase   business.ListUsecase
 }
 
@@ -28,6 +29,7 @@ func CreateUsecases(contextFactory appcontext.Factory) *Usecases {
 	return &Usecases{
 		Business: Business{
 			CreateUsecase: business.NewCreateUsecase(contextFactory),
+			UpdateUsecase: business.NewUpdateUsecase(contextFactory),
 			ListUsecase:   business.NewListUsecase(contextFactory),
 		},
 		Service: Service{

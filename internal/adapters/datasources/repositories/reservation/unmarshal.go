@@ -23,7 +23,6 @@ func unmarshal(reservationDocument ReservationDocument) domain_reservation.Reser
 func unmarshalService(service ServiceDocument) domain_service.Service {
 	return domain_service.Service{
 		ID:          service.ID,
-		BusinessID:  service.BusinessID,
 		Name:        service.Name,
 		Description: service.Description,
 		Pictures:    service.Pictures,
@@ -78,7 +77,6 @@ func marshal(reservation domain_reservation.Reservation) ReservationDocument {
 func marshalService(service domain_service.Service) ServiceDocument {
 	return ServiceDocument{
 		ID:          service.ID,
-		BusinessID:  service.BusinessID,
 		Name:        service.Name,
 		Description: service.Description,
 		Pictures:    service.Pictures,

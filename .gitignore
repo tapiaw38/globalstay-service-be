@@ -39,6 +39,8 @@ _cgo_export.*
 
 # Common IDE folders
 .idea
+.fleet
+!.vscode/launch.json
 
 # Environmanet variables file
 .env*

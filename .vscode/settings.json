@@ -1,9 +1,0 @@
-{
-  "ShortcutMenuBar.copy": false,
-  "editor.fontSize": 14.5,
-  "workbench.tree.stickyScrollMaxItemCount": 10,
-  "git-graph.commitDetailsView.fileView.fileTree.compactFolders": false,
-  "workbench.tree.expandMode": "singleClick",
-  "workbench.layoutControl.type": "both",
-  "diffEditor.renderGutterMenu": true
-}

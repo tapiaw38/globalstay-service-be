@@ -10,7 +10,7 @@ import (
 
 func (r *repository) Update(ctx context.Context, id string, business domain.Business) (string, error) {
 	businessDocument := marshal(business)
-	result, err := r.client.GetCollection().UpdateOne(
+	result, err := r.client.UpdateOne(
 		ctx,
 		bson.M{"_id": id},
 		bson.M{"$set": businessDocument},

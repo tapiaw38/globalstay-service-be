@@ -17,6 +17,7 @@ func RegisterApplicationRoutes(app *gin.Engine, useCases *usecases.Usecases) {
 	})
 
 	routeGroup.POST("/business", business.NewCreateHandler(useCases.Business.CreateUsecase))
+	routeGroup.PATCH("/business/:id", business.NewUpdateHandler(useCases.Business.UpdateUsecase))
 	routeGroup.GET("/businesses", business.NewListHandler(useCases.Business.ListUsecase))
 
 	routeGroup.GET("/services", service.NewListHandler(useCases.Service.ListUsecase))
