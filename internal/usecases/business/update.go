@@ -30,14 +30,13 @@ func NewUpdateUsecase(contextFactory appcontext.Factory) UpdateUsecase {
 func (u *updateUsecase) Update(ctx context.Context, id string, input domain.Business) (*UpdateOutput, error) {
 	app := u.contextFactory()
 
-	// TODO: crear un endpoint que solo devuelva los servicios de un negocio
-	business, err := app.Repositories.Business.FindByID(ctx, id)
+	services, err := app.Repositories.Business.FindServices(ctx, id)
 	if err != nil {
 		return nil, err
 	}
 
-	services := updateBusinessServices(*business, input)
-	input.Services = services
+	servicesUpdated := updateBusinessServices(services, input)
+	input.Services = servicesUpdated
 
 	_, err = app.Repositories.Business.Update(ctx, id, input)
 	if err != nil {
@@ -54,9 +53,9 @@ func (u *updateUsecase) Update(ctx context.Context, id string, input domain.Busi
 	}, nil
 }
 
-func updateBusinessServices(business domain.Business, input domain.Business) []domain.Service {
+func updateBusinessServices(services []domain.Service, input domain.Business) []domain.Service {
 	existingServicesMap := make(map[string]domain.Service)
-	for _, service := range business.Services {
+	for _, service := range services {
 		existingServicesMap[service.ID] = service
 	}
 

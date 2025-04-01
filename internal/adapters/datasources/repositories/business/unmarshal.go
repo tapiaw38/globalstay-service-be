@@ -89,3 +89,12 @@ func unmarshal(businessDocument BusinessDocument) domain_business.Business {
 		AveragePrice: businessDocument.AveragePrice,
 	}
 }
+
+func unmarshalService(serviceDocument ServiceDocument) domain_business.Service {
+	return domain_business.Service{
+		ID:          serviceDocument.ID,
+		Name:        serviceDocument.Name,
+		Description: serviceDocument.Description,
+		Pictures:    serviceDocument.Pictures,
+	}
+}

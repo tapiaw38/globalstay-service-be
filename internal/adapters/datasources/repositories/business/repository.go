@@ -14,6 +14,7 @@ type (
 		FindAll(context.Context, FilterOptions) ([]domain.Business, error)
 		Update(context.Context, string, domain.Business) (string, error)
 		Delete(context.Context, string) (string, error)
+		FindServices(context.Context, string) ([]domain.Service, error)
 	}
 
 	repository struct {
