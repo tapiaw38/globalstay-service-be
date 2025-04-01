@@ -2,8 +2,11 @@ package nosql
 
 import (
 	"context"
+	"log"
 
 	"github.com/tapiaw38/reservation-service-be/internal/platform/config"
+	"github.com/tapiaw38/reservation-service-be/internal/platform/migrations"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -12,6 +15,7 @@ type Client interface {
 	Disconnect(context.Context) error
 	Ping(context.Context) error
 	GetCollection() *mongo.Collection
+	RunMigrations(*mongo.Collection, []migrations.Migration) error
 	InsertOne(ctx context.Context, document interface{}) (*mongo.InsertOneResult, error)
 	Find(ctx context.Context, filter interface{}, opts ...*options.FindOptions) (*mongo.Cursor, error)
 	FindOne(ctx context.Context, filter interface{}, opts ...*options.FindOneOptions) *mongo.SingleResult
@@ -73,4 +77,38 @@ func (m *client) UpdateOne(ctx context.Context, filter interface{}, update inter
 
 func (m *client) DeleteOne(ctx context.Context, filter interface{}, opts ...*options.DeleteOptions) (*mongo.DeleteResult, error) {
 	return m.GetCollection().DeleteOne(ctx, filter, opts...)
+}
+
+func (m *client) RunMigrations(migrationCollection *mongo.Collection, migrations []migrations.Migration) error {
+	for _, migration := range migrations {
+		var existing bson.M
+		err := migrationCollection.FindOne(context.Background(), bson.M{
+			"version":    migration.Version,
+			"collection": m.GetCollection().Name(),
+		}).Decode(&existing)
+		if err == nil {
+			log.Printf("Migration version %d already exists, skipping", migration.Version)
+			continue
+		}
+
+		if err != mongo.ErrNoDocuments {
+			return err
+		}
+
+		log.Printf("Running migration version %d", migration.Version)
+		if err := migration.Up(m.client.Database(m.database)); err != nil {
+			return err
+		}
+
+		_, err = migrationCollection.InsertOne(context.Background(), bson.M{
+			"version":    migration.Version,
+			"collection": m.GetCollection().Name(),
+		})
+		if err != nil {
+			return err
+		}
+	}
+
+	log.Println("All migrations are up to date")
+	return nil
 }

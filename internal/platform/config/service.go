@@ -23,6 +23,7 @@ type (
 	}
 
 	NoSQLConfig struct {
+		Migrations   *NoSQLCollectionConfig
 		Business     *NoSQLCollectionConfig
 		Services     *NoSQLCollectionConfig
 		Reservations *NoSQLCollectionConfig

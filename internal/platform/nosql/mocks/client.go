@@ -13,6 +13,7 @@ import (
 	context "context"
 	reflect "reflect"
 
+	migrations "github.com/tapiaw38/reservation-service-be/internal/platform/migrations"
 	mongo "go.mongodb.org/mongo-driver/mongo"
 	options "go.mongodb.org/mongo-driver/mongo/options"
 	gomock "go.uber.org/mock/gomock"
@@ -156,6 +157,20 @@ func (m *MockClient) Ping(arg0 context.Context) error {
 func (mr *MockClientMockRecorder) Ping(arg0 any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Ping", reflect.TypeOf((*MockClient)(nil).Ping), arg0)
+}
+
+// RunMigrations mocks base method.
+func (m *MockClient) RunMigrations(arg0 *mongo.Collection, arg1 []migrations.Migration) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "RunMigrations", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// RunMigrations indicates an expected call of RunMigrations.
+func (mr *MockClientMockRecorder) RunMigrations(arg0, arg1 any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RunMigrations", reflect.TypeOf((*MockClient)(nil).RunMigrations), arg0, arg1)
 }
 
 // UpdateOne mocks base method.

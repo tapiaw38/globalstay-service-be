@@ -31,6 +31,11 @@ func readConfig() (*config.ConfigurationService, error) {
 			JWTSecret: getEnv("JWT_SECRET", "secret"),
 		},
 		NoSQLConfig: config.NoSQLConfig{
+			Migrations: &config.NoSQLCollectionConfig{
+				DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017"),
+				Database:    getEnv("DB_NAME", "reservation-db"),
+				Collection:  getEnv("DB_COLLECTION_MIGRATIONS", "migrations"),
+			},
 			Business: &config.NoSQLCollectionConfig{
 				DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017"),
 				Database:    getEnv("DB_NAME", "reservation-db"),

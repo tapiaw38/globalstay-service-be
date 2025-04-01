@@ -10,6 +10,7 @@ import (
 	"github.com/tapiaw38/reservation-service-be/internal/adapters/web"
 	"github.com/tapiaw38/reservation-service-be/internal/platform/appcontext"
 	"github.com/tapiaw38/reservation-service-be/internal/platform/config"
+	"github.com/tapiaw38/reservation-service-be/internal/platform/migrations"
 	"github.com/tapiaw38/reservation-service-be/internal/platform/nosql"
 	"github.com/tapiaw38/reservation-service-be/internal/usecases"
 )
@@ -30,30 +31,42 @@ func main() {
 
 func run() error {
 	configService := config.GetConfigService()
+	ctx := context.TODO()
 
-	businessClient, err := nosql.NewClient(configService.NoSQLConfig.Business)
+	var clients []nosql.Client
+	defer func() {
+		for _, client := range clients {
+			_ = client.Disconnect(ctx)
+		}
+	}()
+
+	migrationsCLient, err := createAndDeferClient(configService.NoSQLConfig.Migrations, &clients)
 	if err != nil {
 		return err
 	}
-	defer func(businessClient nosql.Client, ctx context.Context) {
-		_ = businessClient.Disconnect(ctx)
-	}(businessClient, context.TODO())
 
-	servicesClient, err := nosql.NewClient(configService.NoSQLConfig.Services)
+	businessClient, err := createAndDeferClient(configService.NoSQLConfig.Business, &clients)
 	if err != nil {
 		return err
 	}
-	defer func(servicesClient nosql.Client, ctx context.Context) {
-		_ = servicesClient.Disconnect(ctx)
-	}(servicesClient, context.TODO())
 
-	reservationsClient, err := nosql.NewClient(configService.NoSQLConfig.Reservations)
+	if err := businessClient.RunMigrations(
+		migrationsCLient.GetCollection(),
+		migrations.ExecuteBusinessMigrations(businessClient.GetCollection().Name()),
+	); err != nil {
+		log.Printf("Error running migrations for business: %v", err)
+		return err
+	}
+
+	servicesClient, err := createAndDeferClient(configService.NoSQLConfig.Services, &clients)
 	if err != nil {
 		return err
 	}
-	defer func(reservationsClient nosql.Client, ctx context.Context) {
-		_ = reservationsClient.Disconnect(ctx)
-	}(reservationsClient, context.TODO())
+
+	reservationsClient, err := createAndDeferClient(configService.NoSQLConfig.Reservations, &clients)
+	if err != nil {
+		return err
+	}
 
 	if configService.ServerConfig.GinMode == config.DebugMode {
 		gin.SetMode(gin.DebugMode)
@@ -86,4 +99,15 @@ func bootstrap(
 	contextFactory := appcontext.NewFactory(datasources, configService)
 	useCases := usecases.CreateUsecases(contextFactory)
 	web.RegisterApplicationRoutes(app, useCases)
+}
+
+func createAndDeferClient(config *config.NoSQLCollectionConfig, clients *[]nosql.Client) (nosql.Client, error) {
+	client, err := nosql.NewClient(config)
+	if err != nil {
+		return nil, err
+	}
+
+	*clients = append(*clients, client)
+
+	return client, nil
 }

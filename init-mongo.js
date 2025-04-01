@@ -18,6 +18,7 @@ adminDB.auth({
 const newDB = db.getSiblingDB(dbName);
 
 // Create a collection or perform other operations if needed
+newDB.createCollection("migrations");
 newDB.createCollection("business");
 newDB.createCollection("services");
 newDB.createCollection("reservations");
