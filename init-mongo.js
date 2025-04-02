@@ -1,7 +1,7 @@
 // init-mongo.js
 
 // Read environment variables
-const dbName = process.env.DB_NAME || "reservation-db";
+const dbName = process.env.DB_NAME || "hotel-reservation-db";
 const rootUser = process.env.DB_USER || "admin";
 const rootPassword = process.env.DB_PASSWORD || "admin";
 
@@ -19,7 +19,7 @@ const newDB = db.getSiblingDB(dbName);
 
 // Create a collection or perform other operations if needed
 newDB.createCollection("migrations");
-newDB.createCollection("business");
+newDB.createCollection("hotels");
 newDB.createCollection("services");
 newDB.createCollection("reservations");
 

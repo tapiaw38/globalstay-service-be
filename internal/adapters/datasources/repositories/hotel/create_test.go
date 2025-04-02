@@ -1,4 +1,4 @@
-package business_test
+package hotel_test
 
 import (
 	"context"
@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/datasources/repositories/business"
-	domain "github.com/tapiaw38/reservation-service-be/internal/domain/business"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/nosql/mocks"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/datasources/repositories/hotel"
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/hotel"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/nosql/mocks"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/mock/gomock"
 )
@@ -20,7 +20,7 @@ func TestCreate(t *testing.T) {
 
 	tests := map[string]struct {
 		prepare   func(*fields)
-		input     domain.Business
+		input     domain.Hotel
 		expect    string
 		expectErr error
 	}{
@@ -30,9 +30,9 @@ func TestCreate(t *testing.T) {
 					InsertOne(gomock.Any(), gomock.Any()).
 					Return(&mongo.InsertOneResult{InsertedID: "some-id"}, nil)
 			},
-			input: domain.Business{
+			input: domain.Hotel{
 				ID:   "some-id",
-				Name: "Test Business",
+				Name: "Test Hotel",
 			},
 			expect:    "some-id",
 			expectErr: nil,
@@ -43,9 +43,9 @@ func TestCreate(t *testing.T) {
 					InsertOne(gomock.Any(), gomock.Any()).
 					Return(nil, errors.New("insertion error"))
 			},
-			input: domain.Business{
+			input: domain.Hotel{
 				ID:   "some-id",
-				Name: "Test Business",
+				Name: "Test Hotel",
 			},
 			expect:    "",
 			expectErr: errors.New("insertion error"),
@@ -63,7 +63,7 @@ func TestCreate(t *testing.T) {
 
 			tc.prepare(f)
 
-			repo := business.NewRepository(f.client)
+			repo := hotel.NewRepository(f.client)
 			actual, actualErr := repo.Create(context.Background(), tc.input)
 
 			assert.Equal(t, tc.expect, actual)

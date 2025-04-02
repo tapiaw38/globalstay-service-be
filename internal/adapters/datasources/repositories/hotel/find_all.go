@@ -1,9 +1,9 @@
-package business
+package hotel
 
 import (
 	"context"
 
-	domain "github.com/tapiaw38/reservation-service-be/internal/domain/business"
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/hotel"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -20,7 +20,7 @@ type FilterOptions struct {
 	Offset      int64
 }
 
-func (r *repository) FindAll(ctx context.Context, filter FilterOptions) ([]domain.Business, error) {
+func (r *repository) FindAll(ctx context.Context, filter FilterOptions) ([]domain.Hotel, error) {
 	filters := bson.M{}
 	if filter.Name != "" {
 		filters["name"] = bson.M{"$regex": filter.Name}
@@ -69,14 +69,14 @@ func (r *repository) FindAll(ctx context.Context, filter FilterOptions) ([]domai
 		}
 	}(cursor, ctx)
 
-	var businesses []domain.Business
+	var hotels []domain.Hotel
 	for cursor.Next(ctx) {
-		var business BusinessDocument
-		if err := cursor.Decode(&business); err != nil {
+		var hotel HotelDocument
+		if err := cursor.Decode(&hotel); err != nil {
 			return nil, err
 		}
-		businesses = append(businesses, unmarshal(business))
+		hotels = append(hotels, unmarshal(hotel))
 	}
 
-	return businesses, nil
+	return hotels, nil
 }

@@ -1,9 +1,9 @@
-package business
+package hotel
 
-import domain "github.com/tapiaw38/reservation-service-be/internal/domain/business"
+import domain "github.com/tapiaw38/globalstay-service-be/internal/domain/hotel"
 
 type (
-	BusinessInput struct {
+	HotelInput struct {
 		UserID       string           `json:"user_id,omitempty"`
 		Type         string           `json:"type,omitempty"`
 		Name         string           `json:"name,omitempty"`
@@ -22,8 +22,8 @@ type (
 	}
 )
 
-func toBusiness(input BusinessInput) domain.Business {
-	return domain.Business{
+func toHotel(input HotelInput) domain.Hotel {
+	return domain.Hotel{
 		UserID:       input.UserID,
 		Type:         input.Type,
 		Name:         input.Name,
@@ -36,7 +36,6 @@ func toBusiness(input BusinessInput) domain.Business {
 		Latitude:     input.Latitude,
 		Longitude:    input.Longitude,
 		Pictures:     input.Pictures,
-		Services:     input.Services,
 		Reviews:      input.Reviews,
 		AveragePrice: input.AveragePrice,
 	}

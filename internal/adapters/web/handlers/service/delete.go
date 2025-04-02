@@ -1,9 +1,10 @@
 package service
 
 import (
-	"github.com/gin-gonic/gin"
-	usecase "github.com/tapiaw38/reservation-service-be/internal/usecases/service"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+	usecase "github.com/tapiaw38/globalstay-service-be/internal/usecases/service"
 )
 
 func NewDeleteHandler(useCase usecase.DeleteUsecase) gin.HandlerFunc {

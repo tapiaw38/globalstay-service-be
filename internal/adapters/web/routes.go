@@ -2,9 +2,9 @@ package web
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/web/handlers/business"
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/web/handlers/service"
-	"github.com/tapiaw38/reservation-service-be/internal/usecases"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web/handlers/hotel"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web/handlers/service"
+	"github.com/tapiaw38/globalstay-service-be/internal/usecases"
 )
 
 func RegisterApplicationRoutes(app *gin.Engine, useCases *usecases.Usecases) {
@@ -16,10 +16,10 @@ func RegisterApplicationRoutes(app *gin.Engine, useCases *usecases.Usecases) {
 		})
 	})
 
-	routeGroup.POST("/business", business.NewCreateHandler(useCases.Business.CreateUsecase))
-	routeGroup.GET("/business/:id", business.NewGetHandler(useCases.Business.GetUsecase))
-	routeGroup.PATCH("/business/:id", business.NewUpdateHandler(useCases.Business.UpdateUsecase))
-	routeGroup.GET("/businesses", business.NewListHandler(useCases.Business.ListUsecase))
+	routeGroup.POST("/hotel", hotel.NewCreateHandler(useCases.Hotel.CreateUsecase))
+	routeGroup.GET("/hotel/:id", hotel.NewGetHandler(useCases.Hotel.GetUsecase))
+	routeGroup.PATCH("/hotel/:id", hotel.NewUpdateHandler(useCases.Hotel.UpdateUsecase))
+	routeGroup.GET("/hotels", hotel.NewListHandler(useCases.Hotel.ListUsecase))
 
 	routeGroup.GET("/services", service.NewListHandler(useCases.Service.ListUsecase))
 	routeGroup.POST("/services", service.NewCreateHandler(useCases.Service.CreateUsecase))

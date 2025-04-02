@@ -1,9 +1,9 @@
 package appcontext
 
 import (
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/datasources"
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/datasources/repositories"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/config"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/datasources"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/datasources/repositories"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/config"
 )
 
 type Context struct {

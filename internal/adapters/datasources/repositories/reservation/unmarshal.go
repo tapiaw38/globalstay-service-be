@@ -1,9 +1,9 @@
 package reservation
 
 import (
-	domain_business "github.com/tapiaw38/reservation-service-be/internal/domain/business"
-	domain_reservation "github.com/tapiaw38/reservation-service-be/internal/domain/reservation"
-	domain_service "github.com/tapiaw38/reservation-service-be/internal/domain/service"
+	domain_hotel "github.com/tapiaw38/globalstay-service-be/internal/domain/hotel"
+	domain_reservation "github.com/tapiaw38/globalstay-service-be/internal/domain/reservation"
+	domain_service "github.com/tapiaw38/globalstay-service-be/internal/domain/service"
 )
 
 func unmarshal(reservationDocument ReservationDocument) domain_reservation.Reservation {
@@ -14,7 +14,7 @@ func unmarshal(reservationDocument ReservationDocument) domain_reservation.Reser
 
 	return domain_reservation.Reservation{
 		ID:       reservationDocument.ID,
-		Business: unmarshalBusiness(reservationDocument.Business),
+		Hotel:    unmarshalHotel(reservationDocument.Hotel),
 		Services: services,
 		Schedule: unmarshalSchedule(reservationDocument.Schedule),
 	}
@@ -43,20 +43,20 @@ func unmarshalSchedule(schedule []ScheduleDocument) []domain_reservation.Schedul
 	return schedules
 }
 
-func unmarshalBusiness(business BusinessDocument) domain_business.Business {
-	return domain_business.Business{
-		ID:          business.ID,
-		UserID:      business.UserID,
-		Type:        business.Type,
-		Name:        business.Name,
-		Description: business.Description,
-		PhoneNumber: business.PhoneNumber,
-		Email:       business.Email,
-		Content:     business.Content,
-		Address:     business.Address,
-		Active:      business.Active,
-		Latitude:    business.Latitude,
-		Longitude:   business.Longitude,
+func unmarshalHotel(hotel HotelDocument) domain_hotel.Hotel {
+	return domain_hotel.Hotel{
+		ID:          hotel.ID,
+		UserID:      hotel.UserID,
+		Type:        hotel.Type,
+		Name:        hotel.Name,
+		Description: hotel.Description,
+		PhoneNumber: hotel.PhoneNumber,
+		Email:       hotel.Email,
+		Content:     hotel.Content,
+		Address:     hotel.Address,
+		Active:      hotel.Active,
+		Latitude:    hotel.Latitude,
+		Longitude:   hotel.Longitude,
 	}
 }
 
@@ -68,7 +68,7 @@ func marshal(reservation domain_reservation.Reservation) ReservationDocument {
 
 	return ReservationDocument{
 		ID:       reservation.ID,
-		Business: marshalBusiness(reservation.Business),
+		Hotel:    marshalHotel(reservation.Hotel),
 		Services: services,
 		Schedule: marshalSchedule(reservation.Schedule),
 	}
@@ -97,19 +97,19 @@ func marshalSchedule(schedule []domain_reservation.Schedule) []ScheduleDocument 
 	return schedules
 }
 
-func marshalBusiness(business domain_business.Business) BusinessDocument {
-	return BusinessDocument{
-		ID:          business.ID,
-		UserID:      business.UserID,
-		Type:        business.Type,
-		Name:        business.Name,
-		Description: business.Description,
-		PhoneNumber: business.PhoneNumber,
-		Email:       business.Email,
-		Content:     business.Content,
-		Address:     business.Address,
-		Active:      business.Active,
-		Latitude:    business.Latitude,
-		Longitude:   business.Longitude,
+func marshalHotel(hotel domain_hotel.Hotel) HotelDocument {
+	return HotelDocument{
+		ID:          hotel.ID,
+		UserID:      hotel.UserID,
+		Type:        hotel.Type,
+		Name:        hotel.Name,
+		Description: hotel.Description,
+		PhoneNumber: hotel.PhoneNumber,
+		Email:       hotel.Email,
+		Content:     hotel.Content,
+		Address:     hotel.Address,
+		Active:      hotel.Active,
+		Latitude:    hotel.Latitude,
+		Longitude:   hotel.Longitude,
 	}
 }

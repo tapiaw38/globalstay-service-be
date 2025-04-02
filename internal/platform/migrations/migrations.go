@@ -9,7 +9,7 @@ type Migration struct {
 	Up      func(db *mongo.Database) error
 }
 
-func ExecuteBusinessMigrations(collectionName string) []Migration {
+func ExecuteHotelMigrations(collectionName string) []Migration {
 	return []Migration{
 		// {
 		// 	Version: 1,

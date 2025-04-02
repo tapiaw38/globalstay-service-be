@@ -3,7 +3,7 @@ package reservation
 type (
 	ReservationDocument struct {
 		ID       string             `json:"id"`
-		Business BusinessDocument   `json:"business"`
+		Hotel    HotelDocument      `json:"hotel"`
 		Services []ServiceDocument  `json:"services"`
 		Schedule []ScheduleDocument `json:"schedule"`
 	}
@@ -16,13 +16,13 @@ type (
 
 	ServiceDocument struct {
 		ID          string   `json:"id"`
-		BusinessID  string   `json:"business_id"`
+		HotelID     string   `json:"hotel_id"`
 		Name        string   `json:"name"`
 		Description string   `json:"description"`
 		Pictures    []string `json:"pictures"`
 	}
 
-	BusinessDocument struct {
+	HotelDocument struct {
 		ID          string  `json:"id"`
 		UserID      string  `json:"user_id"`
 		Type        string  `json:"type"`

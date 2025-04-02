@@ -2,8 +2,9 @@ package service
 
 import (
 	"context"
-	domain "github.com/tapiaw38/reservation-service-be/internal/domain/service"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/appcontext"
+
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/service"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
 )
 
 type (

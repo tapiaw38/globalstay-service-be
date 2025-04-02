@@ -1,9 +1,9 @@
-package business
+package hotel
 
 import (
 	"context"
 
-	"github.com/tapiaw38/reservation-service-be/internal/platform/appcontext"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
 )
 
 type (
@@ -16,7 +16,7 @@ type (
 	}
 
 	GetOutput struct {
-		Data BusinessOutputData `json:"data"`
+		Data HotelOutputData `json:"data"`
 	}
 )
 
@@ -29,12 +29,12 @@ func NewGetUsecase(contextFactory appcontext.Factory) GetUsecase {
 func (u *getUsecase) Get(ctx context.Context, id string) (*GetOutput, error) {
 	app := u.contextFactory()
 
-	business, err := app.Repositories.Business.FindByID(ctx, id)
+	hotel, err := app.Repositories.Hotel.FindByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
 
 	return &GetOutput{
-		Data: toBusinessOutputData(*business),
+		Data: toHotelOutputData(*hotel),
 	}, nil
 }

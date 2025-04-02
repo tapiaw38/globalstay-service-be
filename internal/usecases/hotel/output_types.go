@@ -1,9 +1,9 @@
-package business
+package hotel
 
-import domain "github.com/tapiaw38/reservation-service-be/internal/domain/business"
+import domain "github.com/tapiaw38/globalstay-service-be/internal/domain/hotel"
 
 type (
-	BusinessOutputData struct {
+	HotelOutputData struct {
 		ID           string              `json:"id"`
 		UserID       string              `json:"user_id"`
 		Type         string              `json:"type"`
@@ -36,37 +36,31 @@ type (
 	}
 )
 
-func toBusinessOutputData(business domain.Business) BusinessOutputData {
-	services := make([]ServiceOutputData, len(business.Services))
-	for i, service := range business.Services {
-		services[i] = toServiceOutputData(service)
-	}
-
-	reviews := make([]ReviewOutputData, len(business.Reviews))
-	for i, review := range business.Reviews {
+func toHotelOutputData(hotel domain.Hotel) HotelOutputData {
+	reviews := make([]ReviewOutputData, len(hotel.Reviews))
+	for i, review := range hotel.Reviews {
 		reviews[i] = toReviewOutputData(review)
 	}
 
-	pictures := make([]string, len(business.Pictures))
-	copy(pictures, business.Pictures)
+	pictures := make([]string, len(hotel.Pictures))
+	copy(pictures, hotel.Pictures)
 
-	return BusinessOutputData{
-		ID:           business.ID,
-		UserID:       business.UserID,
-		Type:         business.Type,
-		Name:         business.Name,
-		Description:  business.Description,
-		PhoneNumber:  business.PhoneNumber,
-		Email:        business.Email,
-		Content:      business.Content,
-		Address:      business.Address,
-		Active:       business.Active,
-		Latitude:     business.Latitude,
-		Longitude:    business.Longitude,
+	return HotelOutputData{
+		ID:           hotel.ID,
+		UserID:       hotel.UserID,
+		Type:         hotel.Type,
+		Name:         hotel.Name,
+		Description:  hotel.Description,
+		PhoneNumber:  hotel.PhoneNumber,
+		Email:        hotel.Email,
+		Content:      hotel.Content,
+		Address:      hotel.Address,
+		Active:       hotel.Active,
+		Latitude:     hotel.Latitude,
+		Longitude:    hotel.Longitude,
 		Pictures:     pictures,
-		Services:     services,
 		Reviews:      reviews,
-		AveragePrice: business.AveragePrice,
+		AveragePrice: hotel.AveragePrice,
 	}
 }
 

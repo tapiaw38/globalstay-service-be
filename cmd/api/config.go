@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/config"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/config"
 )
 
 func initConfig() error {
@@ -36,10 +36,10 @@ func readConfig() (*config.ConfigurationService, error) {
 				Database:    getEnv("DB_NAME", "reservation-db"),
 				Collection:  getEnv("DB_COLLECTION_MIGRATIONS", "migrations"),
 			},
-			Business: &config.NoSQLCollectionConfig{
+			Hotels: &config.NoSQLCollectionConfig{
 				DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017"),
 				Database:    getEnv("DB_NAME", "reservation-db"),
-				Collection:  getEnv("DB_COLLECTION_BUSINESS", "business"),
+				Collection:  getEnv("DB_COLLECTION_HOTELS", "hotels"),
 			},
 			Services: &config.NoSQLCollectionConfig{
 				DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017"),

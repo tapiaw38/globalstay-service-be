@@ -6,13 +6,13 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/datasources"
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/web"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/appcontext"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/config"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/migrations"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/nosql"
-	"github.com/tapiaw38/reservation-service-be/internal/usecases"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/datasources"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/config"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/migrations"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/nosql"
+	"github.com/tapiaw38/globalstay-service-be/internal/usecases"
 )
 
 func main() {
@@ -45,16 +45,16 @@ func run() error {
 		return err
 	}
 
-	businessClient, err := createAndDeferClient(configService.NoSQLConfig.Business, &clients)
+	hotelClient, err := createAndDeferClient(configService.NoSQLConfig.Hotels, &clients)
 	if err != nil {
 		return err
 	}
 
-	if err := businessClient.RunMigrations(
+	if err := hotelClient.RunMigrations(
 		migrationsCLient.GetCollection(),
-		migrations.ExecuteBusinessMigrations(businessClient.GetCollection().Name()),
+		migrations.ExecuteHotelMigrations(hotelClient.GetCollection().Name()),
 	); err != nil {
-		log.Printf("Error running migrations for business: %v", err)
+		log.Printf("Error running migrations for hotel: %v", err)
 		return err
 	}
 
@@ -83,19 +83,19 @@ func run() error {
 	ginConfig.ExposeHeaders = []string{"*"}
 	app.Use(cors.New(ginConfig))
 
-	bootstrap(app, businessClient, servicesClient, reservationsClient, &configService)
+	bootstrap(app, hotelClient, servicesClient, reservationsClient, &configService)
 
 	return app.Run(":" + configService.ServerConfig.Port)
 }
 
 func bootstrap(
 	app *gin.Engine,
-	businessClient nosql.Client,
+	hotelClient nosql.Client,
 	servicesClient nosql.Client,
 	reservationsClient nosql.Client,
 	configService *config.ConfigurationService,
 ) {
-	datasources := datasources.CreateDatasources(businessClient, servicesClient, reservationsClient)
+	datasources := datasources.CreateDatasources(hotelClient, servicesClient, reservationsClient)
 	contextFactory := appcontext.NewFactory(datasources, configService)
 	useCases := usecases.CreateUsecases(contextFactory)
 	web.RegisterApplicationRoutes(app, useCases)

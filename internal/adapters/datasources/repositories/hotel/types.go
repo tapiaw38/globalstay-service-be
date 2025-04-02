@@ -1,7 +1,7 @@
-package business
+package hotel
 
 type (
-	BusinessDocument struct {
+	HotelDocument struct {
 		ID           string            `bson:"_id,omitempty"`
 		UserID       string            `bson:"user_id,omitempty"`
 		Type         string            `bson:"type,omitempty"`

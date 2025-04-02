@@ -13,7 +13,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	migrations "github.com/tapiaw38/reservation-service-be/internal/platform/migrations"
+	migrations "github.com/tapiaw38/globalstay-service-be/internal/platform/migrations"
 	mongo "go.mongodb.org/mongo-driver/mongo"
 	options "go.mongodb.org/mongo-driver/mongo/options"
 	gomock "go.uber.org/mock/gomock"

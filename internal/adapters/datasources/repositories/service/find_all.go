@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	domain "github.com/tapiaw38/reservation-service-be/internal/domain/service"
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/service"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -11,8 +11,8 @@ import (
 
 func (r *repository) FindAll(ctx context.Context, filter FilterOptions) ([]domain.Service, error) {
 	filters := bson.M{}
-	if filter.BusinessID != "" {
-		filters["business_id"] = filter.BusinessID
+	if filter.HotelID != "" {
+		filters["hotel_id"] = filter.HotelID
 	}
 
 	if filter.Name != "" {

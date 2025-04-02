@@ -1,14 +1,14 @@
 package domain
 
 import (
-	business_domain "github.com/tapiaw38/reservation-service-be/internal/domain/business"
-	service_domain "github.com/tapiaw38/reservation-service-be/internal/domain/service"
+	hotel_domain "github.com/tapiaw38/globalstay-service-be/internal/domain/hotel"
+	service_domain "github.com/tapiaw38/globalstay-service-be/internal/domain/service"
 )
 
 type (
 	Reservation struct {
 		ID       string
-		Business business_domain.Business
+		Hotel    hotel_domain.Hotel
 		Services []service_domain.Service
 		Schedule []Schedule
 	}

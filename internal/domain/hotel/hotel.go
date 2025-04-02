@@ -1,7 +1,7 @@
 package domain
 
 type (
-	Business struct {
+	Hotel struct {
 		ID           string
 		UserID       string
 		Type         string
@@ -16,7 +16,7 @@ type (
 		Longitude    float64
 		CreatedAt    string
 		UpdatedAt    string
-		Services     []Service
+		Rooms        []Room
 		Pictures     []string
 		Reviews      []Review
 		AveragePrice float64
@@ -33,5 +33,17 @@ type (
 		UserName string
 		Rating   float64
 		Comment  string
+	}
+
+	Room struct {
+		ID            string
+		Number        string
+		Type          string
+		IsOccupied    bool
+		PersonCount   int
+		GuestName     string
+		PricePerNight float64
+		Pictures      []string
+		Services      []Service
 	}
 )

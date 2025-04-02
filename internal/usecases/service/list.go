@@ -2,8 +2,9 @@ package service
 
 import (
 	"context"
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/datasources/repositories/service"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/appcontext"
+
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/datasources/repositories/service"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
 )
 
 type (

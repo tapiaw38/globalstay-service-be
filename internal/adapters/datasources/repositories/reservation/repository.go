@@ -3,8 +3,8 @@ package reservation
 import (
 	"context"
 
-	domain "github.com/tapiaw38/reservation-service-be/internal/domain/reservation"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/nosql"
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/reservation"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/nosql"
 )
 
 type (

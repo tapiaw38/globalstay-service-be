@@ -24,7 +24,7 @@ type (
 
 	NoSQLConfig struct {
 		Migrations   *NoSQLCollectionConfig
-		Business     *NoSQLCollectionConfig
+		Hotels       *NoSQLCollectionConfig
 		Services     *NoSQLCollectionConfig
 		Reservations *NoSQLCollectionConfig
 	}

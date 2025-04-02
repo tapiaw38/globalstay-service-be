@@ -2,7 +2,7 @@
 .PHONY: help welcome install-deps run run-dev clean
 
 welcome: ## Welcome message
-	@echo "\033[1;33mIT-Reservation - RESERVATION SERVICE Back-End\033[0m\n"
+	@echo "\033[1;33mIT-Globalstay - GLOBALSTAY SERVICE Back-End\033[0m\n"
 
 install-deps: welcome ## Install dependencies for running the project
 	@echo "Installing Delve (debugger)..."

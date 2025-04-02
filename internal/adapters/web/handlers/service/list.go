@@ -1,11 +1,12 @@
 package service
 
 import (
-	"github.com/gin-gonic/gin"
-	webutils "github.com/tapiaw38/reservation-service-be/internal/platform/web"
-	usecase "github.com/tapiaw38/reservation-service-be/internal/usecases/service"
 	"net/http"
 	"net/url"
+
+	"github.com/gin-gonic/gin"
+	webutils "github.com/tapiaw38/globalstay-service-be/internal/platform/web"
+	usecase "github.com/tapiaw38/globalstay-service-be/internal/usecases/service"
 )
 
 func NewListHandler(useCase usecase.ListUsecase) gin.HandlerFunc {
@@ -23,9 +24,9 @@ func NewListHandler(useCase usecase.ListUsecase) gin.HandlerFunc {
 
 func parseListFilter(queries url.Values) usecase.FilterOptions {
 	return usecase.FilterOptions{
-		BusinessID: queries.Get("business_id"),
-		Name:       queries.Get("name"),
-		Limit:      webutils.ParseInt64QueryValue(queries.Get("limit")),
-		Offset:     webutils.ParseInt64QueryValue(queries.Get("offset")),
+		HotelID: queries.Get("hotel_id"),
+		Name:    queries.Get("name"),
+		Limit:   webutils.ParseInt64QueryValue(queries.Get("limit")),
+		Offset:  webutils.ParseInt64QueryValue(queries.Get("offset")),
 	}
 }

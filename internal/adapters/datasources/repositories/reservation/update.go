@@ -3,7 +3,7 @@ package reservation
 import (
 	"context"
 
-	domain "github.com/tapiaw38/reservation-service-be/internal/domain/reservation"
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/reservation"
 	"go.mongodb.org/mongo-driver/bson"
 )
 

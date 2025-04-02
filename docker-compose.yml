@@ -1,8 +1,8 @@
 version: "3.8"
 
 services:
-  reservation-mongo-db:
-    container_name: "reservation-mongo-db"
+  globalstay-mongo-db:
+    container_name: "globalstay-mongo-db"
     image: mongo:6.0
     restart: on-failure
     ports:
@@ -12,10 +12,10 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
       - MONGO_INITDB_DATABASE=${DB_NAME}
     volumes:
-      - reservation-mongo-db-data:/data/db
+      - globalstay-mongo-db-data:/data/db
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
 volumes:
-  reservation-mongo-db-data:
+  globalstay-mongo-db-data:
     driver: local
 networks:
   default:

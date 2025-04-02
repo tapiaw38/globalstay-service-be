@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/tapiaw38/reservation-service-be/internal/platform/config"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/migrations"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/config"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/migrations"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

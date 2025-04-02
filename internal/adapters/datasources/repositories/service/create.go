@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	domain "github.com/tapiaw38/reservation-service-be/internal/domain/service"
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/service"
 )
 
 func (r *repository) Create(ctx context.Context, service domain.Service) (string, error) {

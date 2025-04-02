@@ -1,13 +1,13 @@
-package business
+package hotel
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tapiaw38/reservation-service-be/internal/usecases/business"
+	"github.com/tapiaw38/globalstay-service-be/internal/usecases/hotel"
 )
 
-func NewGetHandler(usecase business.GetUsecase) gin.HandlerFunc {
+func NewGetHandler(usecase hotel.GetUsecase) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Param("id")
 		if id == "" {
@@ -17,7 +17,7 @@ func NewGetHandler(usecase business.GetUsecase) gin.HandlerFunc {
 			return
 		}
 
-		business, err := usecase.Get(c, id)
+		hotel, err := usecase.Get(c, id)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
@@ -25,6 +25,6 @@ func NewGetHandler(usecase business.GetUsecase) gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, business)
+		c.JSON(http.StatusOK, hotel)
 	}
 }

@@ -1,21 +1,21 @@
 package usecases
 
 import (
-	"github.com/tapiaw38/reservation-service-be/internal/platform/appcontext"
-	"github.com/tapiaw38/reservation-service-be/internal/usecases/business"
-	"github.com/tapiaw38/reservation-service-be/internal/usecases/service"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
+	"github.com/tapiaw38/globalstay-service-be/internal/usecases/hotel"
+	"github.com/tapiaw38/globalstay-service-be/internal/usecases/service"
 )
 
 type Usecases struct {
-	Business Business
-	Service  Service
+	Hotel   Hotel
+	Service Service
 }
 
-type Business struct {
-	CreateUsecase business.CreateUsecase
-	GetUsecase    business.GetUsecase
-	UpdateUsecase business.UpdateUsecase
-	ListUsecase   business.ListUsecase
+type Hotel struct {
+	CreateUsecase hotel.CreateUsecase
+	GetUsecase    hotel.GetUsecase
+	UpdateUsecase hotel.UpdateUsecase
+	ListUsecase   hotel.ListUsecase
 }
 
 type Service struct {
@@ -28,11 +28,11 @@ type Service struct {
 
 func CreateUsecases(contextFactory appcontext.Factory) *Usecases {
 	return &Usecases{
-		Business: Business{
-			CreateUsecase: business.NewCreateUsecase(contextFactory),
-			GetUsecase:    business.NewGetUsecase(contextFactory),
-			UpdateUsecase: business.NewUpdateUsecase(contextFactory),
-			ListUsecase:   business.NewListUsecase(contextFactory),
+		Hotel: Hotel{
+			CreateUsecase: hotel.NewCreateUsecase(contextFactory),
+			GetUsecase:    hotel.NewGetUsecase(contextFactory),
+			UpdateUsecase: hotel.NewUpdateUsecase(contextFactory),
+			ListUsecase:   hotel.NewListUsecase(contextFactory),
 		},
 		Service: Service{
 			ListUsecase:   service.NewListUsecase(contextFactory),

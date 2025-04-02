@@ -1,20 +1,20 @@
 package datasources
 
-import "github.com/tapiaw38/reservation-service-be/internal/platform/nosql"
+import "github.com/tapiaw38/globalstay-service-be/internal/platform/nosql"
 
 type Datasources struct {
-	NoSQLBusinessClient     nosql.Client
+	NoSQLHotelClient        nosql.Client
 	NoSQLServicesClient     nosql.Client
 	NoSQLReservationsClient nosql.Client
 }
 
 func CreateDatasources(
-	noSQLBusinessClient nosql.Client,
+	noSQLHotelClient nosql.Client,
 	noSQLServicesClient nosql.Client,
 	noSQLReservationsClient nosql.Client,
 ) *Datasources {
 	return &Datasources{
-		NoSQLBusinessClient:     noSQLBusinessClient,
+		NoSQLHotelClient:        noSQLHotelClient,
 		NoSQLServicesClient:     noSQLServicesClient,
 		NoSQLReservationsClient: noSQLReservationsClient,
 	}

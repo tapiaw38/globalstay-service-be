@@ -2,8 +2,9 @@ package service
 
 import (
 	"context"
-	domain "github.com/tapiaw38/reservation-service-be/internal/domain/service"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/nosql"
+
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/service"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/nosql"
 )
 
 type (
@@ -20,10 +21,10 @@ type (
 	}
 
 	FilterOptions struct {
-		BusinessID string
-		Name       string
-		Limit      int64
-		Offset     int64
+		HotelID string
+		Name    string
+		Limit   int64
+		Offset  int64
 	}
 )
 

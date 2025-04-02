@@ -1,10 +1,10 @@
-package business
+package hotel
 
 import (
 	"context"
 
-	"github.com/tapiaw38/reservation-service-be/internal/adapters/datasources/repositories/business"
-	"github.com/tapiaw38/reservation-service-be/internal/platform/appcontext"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/datasources/repositories/hotel"
+	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
 )
 
 type (
@@ -16,10 +16,10 @@ type (
 		contextFactory appcontext.Factory
 	}
 
-	FilterOptions business.FilterOptions
+	FilterOptions hotel.FilterOptions
 
 	ListOutput struct {
-		Data []BusinessOutputData `json:"data"`
+		Data []HotelOutputData `json:"data"`
 	}
 )
 
@@ -32,14 +32,14 @@ func NewListUsecase(contextFactory appcontext.Factory) ListUsecase {
 func (u *listUsecase) List(ctx context.Context, filter FilterOptions) (*ListOutput, error) {
 	app := u.contextFactory()
 
-	businesses, err := app.Repositories.Business.FindAll(ctx, business.FilterOptions(filter))
+	hoteles, err := app.Repositories.Hotel.FindAll(ctx, hotel.FilterOptions(filter))
 	if err != nil {
 		return nil, err
 	}
 
-	outputData := make([]BusinessOutputData, 0)
-	for _, business := range businesses {
-		outputData = append(outputData, toBusinessOutputData(business))
+	outputData := make([]HotelOutputData, 0)
+	for _, hotel := range hoteles {
+		outputData = append(outputData, toHotelOutputData(hotel))
 	}
 
 	return &ListOutput{

@@ -1,4 +1,4 @@
-module github.com/tapiaw38/reservation-service-be
+module github.com/tapiaw38/globalstay-service-be
 
 go 1.23.4
 

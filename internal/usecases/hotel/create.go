@@ -1,16 +1,16 @@
-package service
+package hotel
 
 import (
 	"context"
 
 	"github.com/google/uuid"
-	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/service"
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/hotel"
 	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
 )
 
 type (
 	CreateUsecase interface {
-		Create(context.Context, domain.Service) (*CreateOutput, error)
+		Create(context.Context, domain.Hotel) (*CreateOutput, error)
 	}
 
 	createUsecase struct {
@@ -18,7 +18,7 @@ type (
 	}
 
 	CreateOutput struct {
-		Data ServiceOutputData `json:"data"`
+		Data HotelOutputData `json:"data"`
 	}
 )
 
@@ -28,26 +28,26 @@ func NewCreateUsecase(contextFactory appcontext.Factory) CreateUsecase {
 	}
 }
 
-func (u *createUsecase) Create(ctx context.Context, input domain.Service) (*CreateOutput, error) {
+func (u *createUsecase) Create(ctx context.Context, input domain.Hotel) (*CreateOutput, error) {
 	app := u.contextFactory()
 
-	serviceID, err := uuid.NewUUID()
+	hotelID, err := uuid.NewUUID()
 	if err != nil {
 		return nil, err
 	}
 
-	input.ID = serviceID.String()
-	id, err := app.Repositories.Service.Create(ctx, input)
+	input.ID = hotelID.String()
+	id, err := app.Repositories.Hotel.Create(ctx, input)
 	if err != nil {
 		return nil, err
 	}
 
-	service, err := app.Repositories.Service.FindByID(ctx, id)
+	hotel, err := app.Repositories.Hotel.FindByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
 
 	return &CreateOutput{
-		Data: toServiceOutputData(*service),
+		Data: toHotelOutputData(*hotel),
 	}, nil
 }
