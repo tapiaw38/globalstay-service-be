@@ -91,4 +91,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/) - Copyright (c) 2024 Tapia Walter <tapiawalter@gmail.com> (https://github.com/tapiaw38)
+[MIT](https://choosealicense.com/licenses/mit/) - Copyright (c) 2024 Tapia Walter <tapiawalter@gmail.com> (<https://github.com/tapiaw38>)
