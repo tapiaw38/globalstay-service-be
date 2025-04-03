@@ -25,13 +25,14 @@ func NewListHandler(usecase usecase.ListUsecase) gin.HandlerFunc {
 
 func parseListHotelFilter(queries url.Values) usecase.FilterOptions {
 	return usecase.FilterOptions{
-		Name:        queries.Get("name"),
-		Type:        queries.Get("type"),
-		Description: queries.Get("description"),
-		Active:      webutils.ParseBoolQueryValue(queries.Get("active")),
-		Latitude:    webutils.ParseFloat64QueryValue(queries.Get("latitude")),
-		Longitude:   webutils.ParseFloat64QueryValue(queries.Get("longitude")),
-		Limit:       webutils.ParseInt64QueryValue(queries.Get("limit")),
-		Offset:      webutils.ParseInt64QueryValue(queries.Get("offset")),
+		Name:         queries.Get("name"),
+		Type:         queries.Get("type"),
+		Description:  queries.Get("description"),
+		Active:       webutils.ParseBoolQueryValue(queries.Get("active")),
+		Latitude:     webutils.ParseFloat64QueryValue(queries.Get("latitude")),
+		Longitude:    webutils.ParseFloat64QueryValue(queries.Get("longitude")),
+		LocationName: queries.Get("location_name"),
+		Limit:        webutils.ParseInt64QueryValue(queries.Get("limit")),
+		Offset:       webutils.ParseInt64QueryValue(queries.Get("offset")),
 	}
 }

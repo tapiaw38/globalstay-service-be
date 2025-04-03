@@ -10,14 +10,15 @@ import (
 )
 
 type FilterOptions struct {
-	Name        string
-	Type        string
-	Description string
-	Active      bool
-	Latitude    float64
-	Longitude   float64
-	Limit       int64
-	Offset      int64
+	Name         string
+	Type         string
+	Description  string
+	Active       bool
+	Latitude     float64
+	Longitude    float64
+	LocationName string
+	Limit        int64
+	Offset       int64
 }
 
 func (r *repository) FindAll(ctx context.Context, filter FilterOptions) ([]domain.Hotel, error) {
@@ -38,15 +39,8 @@ func (r *repository) FindAll(ctx context.Context, filter FilterOptions) ([]domai
 		filters["active"] = filter.Active
 	}
 
-	if filter.Latitude != 0 && filter.Longitude != 0 {
-		filters["location"] = bson.M{
-			"$geoWithin": bson.M{
-				"$centerSphere": []interface{}{
-					[]float64{filter.Longitude, filter.Latitude},
-					1000 / 3963.2,
-				},
-			},
-		}
+	if filter.LocationName != "" {
+		filters["location_name"] = filter.LocationName
 	}
 
 	opts := options.Find()

@@ -3,8 +3,6 @@ package places
 import (
 	"context"
 	"os"
-	"strconv"
-	"strings"
 
 	"googlemaps.github.io/maps"
 )
@@ -27,28 +25,9 @@ type (
 	}
 )
 
-func (i integration) GetPlaces(location string, radius uint, types maps.PlaceType) ([]Place, error) {
+func (i integration) GetPlaces(latitude, longitude float64, radius uint, types maps.PlaceType) ([]Place, error) {
 	if radius == 0 {
 		radius = googleMapsRadius
-	}
-
-	if types == "" {
-		types = googleMapsTypes
-	}
-
-	coordinates := strings.Split(location, ",")
-	if len(coordinates) != 2 {
-		return nil, nil
-	}
-
-	latitude, err := strconv.ParseFloat(coordinates[0], 64)
-	if err != nil {
-		return nil, err
-	}
-
-	longitude, err := strconv.ParseFloat(coordinates[1], 64)
-	if err != nil {
-		return nil, err
 	}
 
 	request := &maps.NearbySearchRequest{

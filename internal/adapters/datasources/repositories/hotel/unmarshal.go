@@ -60,6 +60,7 @@ func marshal(hotel domain_hotel.Hotel) HotelDocument {
 		Pictures:     pictures,
 		Reviews:      reviews,
 		AveragePrice: hotel.AveragePrice,
+		LocationName: hotel.LocationName,
 	}
 }
 
@@ -119,5 +120,6 @@ func unmarshal(hotelDocument HotelDocument) domain_hotel.Hotel {
 		Pictures:     pictures,
 		Reviews:      reviews,
 		AveragePrice: hotelDocument.AveragePrice,
+		LocationName: hotelDocument.LocationName,
 	}
 }

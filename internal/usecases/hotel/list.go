@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/tapiaw38/globalstay-service-be/internal/adapters/datasources/repositories/hotel"
+	domain "github.com/tapiaw38/globalstay-service-be/internal/domain/location"
 	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
 )
 
@@ -31,6 +32,16 @@ func NewListUsecase(contextFactory appcontext.Factory) ListUsecase {
 
 func (u *listUsecase) Execute(ctx context.Context, filter FilterOptions) (*ListOutput, error) {
 	app := u.contextFactory()
+
+	locations, err := app.Repositories.Location.FindAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	if filter.Latitude != 0 && filter.Longitude != 0 {
+		locationNearest := domain.FindNearestLocation(filter.Latitude, filter.Longitude, locations)
+		filter.LocationName = locationNearest.Name
+	}
 
 	hoteles, err := app.Repositories.Hotel.FindAll(ctx, hotel.FilterOptions(filter))
 	if err != nil {

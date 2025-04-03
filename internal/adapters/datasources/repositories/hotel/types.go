@@ -21,6 +21,7 @@ type (
 		Pictures     []string         `bson:"pictures,omitempty"`
 		Reviews      []ReviewDocument `bson:"reviews,omitempty"`
 		AveragePrice float64          `bson:"average_price,omitempty"`
+		LocationName string           `bson:"location_name,omitempty"`
 	}
 
 	RoomDocument struct {

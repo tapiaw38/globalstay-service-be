@@ -21,6 +21,7 @@ type (
 		Pictures     []string
 		Reviews      []Review
 		AveragePrice float64
+		LocationName string
 	}
 
 	Service struct {

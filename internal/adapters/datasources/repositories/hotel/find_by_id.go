@@ -9,7 +9,6 @@ import (
 
 func (r *repository) FindByID(ctx context.Context, id string) (*domain.Hotel, error) {
 	var hotelDocument HotelDocument
-
 	err := r.client.FindOne(ctx, bson.M{"_id": id}).Decode(&hotelDocument)
 	if err != nil {
 		return nil, err

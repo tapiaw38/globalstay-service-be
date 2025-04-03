@@ -51,6 +51,11 @@ func run() error {
 		return err
 	}
 
+	locationClient, err := createAndDeferClient(configService.NoSQLConfig.Locations, &clients)
+	if err != nil {
+		return err
+	}
+
 	if err := hotelClient.RunMigrations(
 		migrationsCLient.GetCollection(),
 		migrations.ExecuteHotelMigrations(hotelClient.GetCollection().Name()),
@@ -84,7 +89,7 @@ func run() error {
 	ginConfig.ExposeHeaders = []string{"*"}
 	app.Use(cors.New(ginConfig))
 
-	bootstrap(app, hotelClient, servicesClient, reservationsClient, &configService)
+	bootstrap(app, hotelClient, locationClient, servicesClient, reservationsClient, &configService)
 
 	return app.Run(":" + configService.ServerConfig.Port)
 }
@@ -92,11 +97,12 @@ func run() error {
 func bootstrap(
 	app *gin.Engine,
 	hotelClient nosql.Client,
+	locationClient nosql.Client,
 	servicesClient nosql.Client,
 	reservationsClient nosql.Client,
 	configService *config.ConfigurationService,
 ) {
-	datasources := datasources.CreateDatasources(hotelClient, servicesClient, reservationsClient)
+	datasources := datasources.CreateDatasources(hotelClient, locationClient, servicesClient, reservationsClient)
 	integrations := integrations.CreateIntegrations(configService)
 	contextFactory := appcontext.NewFactory(datasources, integrations, configService)
 	useCases := usecases.CreateUsecases(contextFactory)

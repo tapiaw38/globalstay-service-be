@@ -20,6 +20,7 @@ const newDB = db.getSiblingDB(dbName);
 // Create a collection or perform other operations if needed
 newDB.createCollection("migrations");
 newDB.createCollection("hotels");
+newDB.createCollection("locations");
 newDB.createCollection("services");
 newDB.createCollection("reservations");
 

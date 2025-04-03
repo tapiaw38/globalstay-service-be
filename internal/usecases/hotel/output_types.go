@@ -20,6 +20,7 @@ type (
 		Rooms        []RoomOutputData   `json:"rooms"`
 		Reviews      []ReviewOutputData `json:"reviews"`
 		AveragePrice float64            `json:"average_price"`
+		LocationName string             `json:"location_name"`
 	}
 
 	RoomOutputData struct {
@@ -79,6 +80,7 @@ func toHotelOutputData(hotel domain.Hotel) HotelOutputData {
 		Pictures:     pictures,
 		Reviews:      reviews,
 		AveragePrice: hotel.AveragePrice,
+		LocationName: hotel.LocationName,
 	}
 }
 

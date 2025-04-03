@@ -9,13 +9,7 @@ import (
 
 func NewScanPlacesJob(usecase hotel.ScanPlacesUsecase) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var input ScanPlacesInput
-		if err := c.ShouldBindJSON(&input); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
-
-		if err := usecase.Execute(c, input.Location, input.Radius, input.Types); err != nil {
+		if err := usecase.Execute(c.Request.Context()); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}

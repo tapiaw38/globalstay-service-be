@@ -9,12 +9,11 @@ import (
 
 var (
 	googleMapsRadius uint = 5000
-	googleMapsTypes       = maps.PlaceTypeLodging
 )
 
 type (
 	Integration interface {
-		GetPlaces(string, uint, maps.PlaceType) ([]Place, error)
+		GetPlaces(float64, float64, uint, maps.PlaceType) ([]Place, error)
 	}
 
 	integration struct {
