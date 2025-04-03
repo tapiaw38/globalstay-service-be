@@ -30,8 +30,7 @@ func NewUpdateUsecase(contextFactory appcontext.Factory) UpdateUsecase {
 func (u *updateUsecase) Execute(ctx context.Context, id string, input domain.Hotel) (*UpdateOutput, error) {
 	app := u.contextFactory()
 
-	_, err := app.Repositories.Hotel.Update(ctx, id, input)
-	if err != nil {
+	if _, err := app.Repositories.Hotel.Update(ctx, id, input); err != nil {
 		return nil, err
 	}
 

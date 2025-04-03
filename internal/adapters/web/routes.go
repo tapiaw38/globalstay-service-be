@@ -3,6 +3,7 @@ package web
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web/handlers/hotel"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web/handlers/location"
 	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web/handlers/service"
 	hotel_job "github.com/tapiaw38/globalstay-service-be/internal/adapters/web/jobs/hotel"
 	"github.com/tapiaw38/globalstay-service-be/internal/usecases"
@@ -21,6 +22,10 @@ func RegisterApplicationRoutes(app *gin.Engine, useCases *usecases.Usecases) {
 	routeGroup.GET("/hotel/:id", hotel.NewGetHandler(useCases.Hotel.GetUsecase))
 	routeGroup.PATCH("/hotel/:id", hotel.NewUpdateHandler(useCases.Hotel.UpdateUsecase))
 	routeGroup.GET("/hotels", hotel.NewListHandler(useCases.Hotel.ListUsecase))
+
+	routeGroup.POST("/location", location.NewCreateHandler(useCases.Location.CreateUsecase))
+	routeGroup.PATCH("/location/:id", location.NewUpdateHandler(useCases.Location.UpdateUsecase))
+	routeGroup.GET("/locations", location.NewListHandler(useCases.Location.ListUsecase))
 
 	routeGroup.GET("/services", service.NewListHandler(useCases.Service.ListUsecase))
 	routeGroup.POST("/services", service.NewCreateHandler(useCases.Service.CreateUsecase))

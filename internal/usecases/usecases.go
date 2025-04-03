@@ -3,12 +3,14 @@ package usecases
 import (
 	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
 	"github.com/tapiaw38/globalstay-service-be/internal/usecases/hotel"
+	"github.com/tapiaw38/globalstay-service-be/internal/usecases/location"
 	"github.com/tapiaw38/globalstay-service-be/internal/usecases/service"
 )
 
 type Usecases struct {
-	Hotel   Hotel
-	Service Service
+	Hotel    Hotel
+	Location Location
+	Service  Service
 }
 
 type Hotel struct {
@@ -17,6 +19,12 @@ type Hotel struct {
 	UpdateUsecase     hotel.UpdateUsecase
 	ListUsecase       hotel.ListUsecase
 	ScanPlacesUsecase hotel.ScanPlacesUsecase
+}
+
+type Location struct {
+	CreateUsecase location.CreateUsecase
+	UpdateUsecase location.UpdateUsecase
+	ListUsecase   location.ListUsecase
 }
 
 type Service struct {
@@ -35,6 +43,11 @@ func CreateUsecases(contextFactory appcontext.Factory) *Usecases {
 			UpdateUsecase:     hotel.NewUpdateUsecase(contextFactory),
 			ListUsecase:       hotel.NewListUsecase(contextFactory),
 			ScanPlacesUsecase: hotel.NewExecuteScanPlacesUsecase(contextFactory),
+		},
+		Location: Location{
+			CreateUsecase: location.NewCreateUsecase(contextFactory),
+			UpdateUsecase: location.NewUpdateUsecase(contextFactory),
+			ListUsecase:   location.NewListUsecase(contextFactory),
 		},
 		Service: Service{
 			ListUsecase:   service.NewListUsecase(contextFactory),

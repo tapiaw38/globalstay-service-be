@@ -2,13 +2,13 @@ package location
 
 type (
 	LocationDocument struct {
-		ID        string  `json:"id"`
-		Name      string  `json:"name"`
-		City      string  `json:"city"`
-		State     string  `json:"state"`
-		Country   string  `json:"country"`
-		Latitude  float64 `json:"latitude"`
-		Longitude float64 `json:"longitude"`
-		Radius    uint    `json:"radius"`
+		ID        string  `bson:"_id,omitempty"`
+		Name      string  `bson:"name,omitempty"`
+		City      string  `bson:"city,omitempty"`
+		State     string  `bson:"state,omitempty"`
+		Country   string  `bson:"country,omitempty"`
+		Latitude  float64 `bson:"latitude,omitempty"`
+		Longitude float64 `bson:"longitude,omitempty"`
+		Radius    uint    `bson:"radius,omitempty"`
 	}
 )

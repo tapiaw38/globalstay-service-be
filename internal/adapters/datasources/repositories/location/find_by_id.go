@@ -9,7 +9,7 @@ import (
 
 func (r *repository) FindByID(ctx context.Context, id string) (*domain.Location, error) {
 	var locationDocument LocationDocument
-	err := r.client.FindOne(ctx, bson.M{"id": id}).Decode(&locationDocument)
+	err := r.client.FindOne(ctx, bson.M{"_id": id}).Decode(&locationDocument)
 	if err != nil {
 		return nil, err
 	}
