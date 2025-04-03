@@ -1,0 +1,38 @@
+services:
+  globalstay-mongo-db:
+    container_name: "globalstay-mongo-db"
+    image: mongo:6.0
+    restart: on-failure
+    ports:
+      - ${DB_PORT}:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DB_NAME}
+      - MONGO_INITDB_DATABASE_ADMIN_USERNAME=${DB_USER}
+    volumes:
+      - globalstay-mongo-db-data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    networks:
+      - default
+  globalstay-api:
+    container_name: "globalstay-api"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - ${PORT}:8083
+    depends_on:
+      - globalstay-mongo-db
+    stdin_open: true
+    tty: true
+    networks:
+      - default
+    env_file:
+      - .env
+volumes:
+  globalstay-mongo-db-data:
+    driver: local
+networks:
+  default:
+    driver: bridge

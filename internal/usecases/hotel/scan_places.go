@@ -62,7 +62,7 @@ func (u *scanPlacesUsecase) Execute(ctx context.Context, location string, radius
 			PlaceID:     place.ID,
 			Name:        place.Name,
 			Description: place.Description,
-			Address:     place.Address,
+			Address:     place.FormattedAddress,
 			Pictures:    place.Photos,
 			Latitude:    place.Latitude,
 			Longitude:   place.Longitude,

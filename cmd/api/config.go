@@ -33,22 +33,22 @@ func readConfig() (*config.ConfigurationService, error) {
 		NoSQLConfig: config.NoSQLConfig{
 			Migrations: &config.NoSQLCollectionConfig{
 				DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017"),
-				Database:    getEnv("DB_NAME", "reservation-db"),
+				Database:    getEnv("DB_NAME", "hotel-reservation-db"),
 				Collection:  getEnv("DB_COLLECTION_MIGRATIONS", "migrations"),
 			},
 			Hotels: &config.NoSQLCollectionConfig{
 				DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017"),
-				Database:    getEnv("DB_NAME", "reservation-db"),
+				Database:    getEnv("DB_NAME", "hotel-reservation-db"),
 				Collection:  getEnv("DB_COLLECTION_HOTELS", "hotels"),
 			},
 			Services: &config.NoSQLCollectionConfig{
 				DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017"),
-				Database:    getEnv("DB_NAME", "reservation-db"),
+				Database:    getEnv("DB_NAME", "hotel-reservation-db"),
 				Collection:  getEnv("DB_COLLECTION_SERVICES", "services"),
 			},
 			Reservations: &config.NoSQLCollectionConfig{
 				DatabaseURI: getEnv("DATABASE_URI", "mongodb://localhost:27017"),
-				Database:    getEnv("DB_NAME", "reservation-db"),
+				Database:    getEnv("DB_NAME", "hotel-reservation-db"),
 				Collection:  getEnv("DB_COLLECTION_RESERVATIONS", "reservations"),
 			},
 		},

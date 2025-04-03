@@ -16,6 +16,7 @@ type (
 		Description      string
 		Photos           []string
 		Address          string
+		FormattedAddress string
 		Rating           float32
 		UserRatingsTotal int
 		Types            []string
@@ -72,6 +73,7 @@ func (i integration) GetPlaces(location string, radius uint, types maps.PlaceTyp
 			Name:             result.Name,
 			Photos:           extractPhoto(result.Photos),
 			Address:          result.FormattedAddress,
+			FormattedAddress: result.FormattedAddress,
 			Rating:           result.Rating,
 			UserRatingsTotal: result.UserRatingsTotal,
 			Types:            result.Types,
