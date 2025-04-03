@@ -2,6 +2,7 @@ package places
 
 import (
 	"context"
+	"os"
 	"strconv"
 	"strings"
 
@@ -13,7 +14,7 @@ type (
 		ID               string
 		Name             string
 		Description      string
-		PhotoReference   []string
+		Photos           []string
 		Address          string
 		Rating           float32
 		UserRatingsTotal int
@@ -69,7 +70,7 @@ func (i integration) GetPlaces(location string, radius uint, types maps.PlaceTyp
 		place := Place{
 			ID:               result.PlaceID,
 			Name:             result.Name,
-			PhotoReference:   extractPhotoReference(result.Photos),
+			Photos:           extractPhoto(result.Photos),
 			Address:          result.FormattedAddress,
 			Rating:           result.Rating,
 			UserRatingsTotal: result.UserRatingsTotal,
@@ -86,10 +87,14 @@ func (i integration) GetPlaces(location string, radius uint, types maps.PlaceTyp
 	return places, nil
 }
 
-func extractPhotoReference(photos []maps.Photo) []string {
+func extractPhoto(photos []maps.Photo) []string {
 	var photoURLs []string
+	apiKey := os.Getenv("GOOGLE_MAPS_KEY")
+
 	for _, photo := range photos {
-		photoURLs = append(photoURLs, photo.PhotoReference)
+		photoURL := "https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=" + photo.PhotoReference + "&key=" + apiKey
+		photoURLs = append(photoURLs, photoURL)
 	}
+
 	return photoURLs
 }
