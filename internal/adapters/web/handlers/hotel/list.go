@@ -13,7 +13,7 @@ import (
 func NewListHandler(usecase usecase.ListUsecase) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		filter := parseListHotelFilter(c.Request.URL.Query())
-		hoteles, err := usecase.List(c, filter)
+		hoteles, err := usecase.Execute(c, filter)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return

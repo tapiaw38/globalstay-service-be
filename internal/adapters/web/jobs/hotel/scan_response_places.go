@@ -4,23 +4,22 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	usecase "github.com/tapiaw38/globalstay-service-be/internal/usecases/hotel"
+	"github.com/tapiaw38/globalstay-service-be/internal/usecases/hotel"
 )
 
-func NewCreateHandler(usecase usecase.CreateUsecase) gin.HandlerFunc {
+func NewScanPlacesJob(usecase hotel.ScanPlacesUsecase) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		var input HotelInput
+		var input ScanPlacesInput
 		if err := c.ShouldBindJSON(&input); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		hotel, err := usecase.Execute(c, toHotel(input))
-		if err != nil {
+		if err := usecase.Execute(c, input.Location, input.Radius, input.Types); err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
-		c.JSON(http.StatusCreated, hotel)
+		c.JSON(http.StatusOK, nil)
 	}
 }

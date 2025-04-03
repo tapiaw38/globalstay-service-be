@@ -9,7 +9,7 @@ import (
 
 type (
 	ListUsecase interface {
-		List(context.Context, FilterOptions) (*ListOutput, error)
+		Execute(context.Context, FilterOptions) (*ListOutput, error)
 	}
 
 	listUsecase struct {
@@ -29,7 +29,7 @@ func NewListUsecase(contextFactory appcontext.Factory) ListUsecase {
 	}
 }
 
-func (u *listUsecase) List(ctx context.Context, filter FilterOptions) (*ListOutput, error) {
+func (u *listUsecase) Execute(ctx context.Context, filter FilterOptions) (*ListOutput, error) {
 	app := u.contextFactory()
 
 	hoteles, err := app.Repositories.Hotel.FindAll(ctx, hotel.FilterOptions(filter))

@@ -52,6 +52,9 @@ func readConfig() (*config.ConfigurationService, error) {
 				Collection:  getEnv("DB_COLLECTION_RESERVATIONS", "reservations"),
 			},
 		},
+		GCP: config.GCPConfig{
+			MapsKey: getEnv("GOOGLE_MAPS_KEY", "AIzaSyD-0x9a6-8-9"),
+		},
 	}
 
 	return configService, nil

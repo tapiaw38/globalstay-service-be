@@ -17,8 +17,34 @@ func marshal(hotel domain_hotel.Hotel) HotelDocument {
 		}
 	}
 
+	rooms := make([]RoomDocument, len(hotel.Rooms))
+	for i, room := range hotel.Rooms {
+		services := make([]ServiceDocument, len(room.Services))
+		for j, service := range room.Services {
+			services[j] = ServiceDocument{
+				ID:          service.ID,
+				Name:        service.Name,
+				Description: service.Description,
+				Pictures:    service.Pictures,
+			}
+		}
+
+		rooms[i] = RoomDocument{
+			ID:            room.ID,
+			Number:        room.Number,
+			Type:          room.Type,
+			IsOccupied:    room.IsOccupied,
+			PersonCount:   room.PersonCount,
+			GuestName:     room.GuestName,
+			PricePerNight: room.PricePerNight,
+			Pictures:      room.Pictures,
+			Services:      services,
+		}
+	}
+
 	return HotelDocument{
 		ID:           hotel.ID,
+		PlaceID:      hotel.PlaceID,
 		UserID:       hotel.UserID,
 		Type:         hotel.Type,
 		Name:         hotel.Name,
@@ -30,6 +56,7 @@ func marshal(hotel domain_hotel.Hotel) HotelDocument {
 		Active:       hotel.Active,
 		Latitude:     hotel.Latitude,
 		Longitude:    hotel.Longitude,
+		Rooms:        rooms,
 		Pictures:     pictures,
 		Reviews:      reviews,
 		AveragePrice: hotel.AveragePrice,
@@ -49,8 +76,34 @@ func unmarshal(hotelDocument HotelDocument) domain_hotel.Hotel {
 		}
 	}
 
+	rooms := make([]domain_hotel.Room, len(hotelDocument.Rooms))
+	for i, room := range hotelDocument.Rooms {
+		services := make([]domain_hotel.Service, len(room.Services))
+		for j, service := range room.Services {
+			services[j] = domain_hotel.Service{
+				ID:          service.ID,
+				Name:        service.Name,
+				Description: service.Description,
+				Pictures:    service.Pictures,
+			}
+		}
+
+		rooms[i] = domain_hotel.Room{
+			ID:            room.ID,
+			Number:        room.Number,
+			Type:          room.Type,
+			IsOccupied:    room.IsOccupied,
+			PersonCount:   room.PersonCount,
+			GuestName:     room.GuestName,
+			PricePerNight: room.PricePerNight,
+			Pictures:      room.Pictures,
+			Services:      services,
+		}
+	}
+
 	return domain_hotel.Hotel{
 		ID:           hotelDocument.ID,
+		PlaceID:      hotelDocument.PlaceID,
 		UserID:       hotelDocument.UserID,
 		Type:         hotelDocument.Type,
 		Name:         hotelDocument.Name,
@@ -62,17 +115,9 @@ func unmarshal(hotelDocument HotelDocument) domain_hotel.Hotel {
 		Active:       hotelDocument.Active,
 		Latitude:     hotelDocument.Latitude,
 		Longitude:    hotelDocument.Longitude,
+		Rooms:        rooms,
 		Pictures:     pictures,
 		Reviews:      reviews,
 		AveragePrice: hotelDocument.AveragePrice,
-	}
-}
-
-func unmarshalService(serviceDocument ServiceDocument) domain_hotel.Service {
-	return domain_hotel.Service{
-		ID:          serviceDocument.ID,
-		Name:        serviceDocument.Name,
-		Description: serviceDocument.Description,
-		Pictures:    serviceDocument.Pictures,
 	}
 }

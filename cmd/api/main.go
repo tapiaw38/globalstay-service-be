@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/tapiaw38/globalstay-service-be/internal/adapters/datasources"
 	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web"
+	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web/integrations"
 	"github.com/tapiaw38/globalstay-service-be/internal/platform/appcontext"
 	"github.com/tapiaw38/globalstay-service-be/internal/platform/config"
 	"github.com/tapiaw38/globalstay-service-be/internal/platform/migrations"
@@ -96,9 +97,11 @@ func bootstrap(
 	configService *config.ConfigurationService,
 ) {
 	datasources := datasources.CreateDatasources(hotelClient, servicesClient, reservationsClient)
-	contextFactory := appcontext.NewFactory(datasources, configService)
+	integrations := integrations.CreateIntegrations(configService)
+	contextFactory := appcontext.NewFactory(datasources, integrations, configService)
 	useCases := usecases.CreateUsecases(contextFactory)
 	web.RegisterApplicationRoutes(app, useCases)
+	web.RegisterJobRoutes(app, useCases)
 }
 
 func createAndDeferClient(config *config.NoSQLCollectionConfig, clients *[]nosql.Client) (nosql.Client, error) {

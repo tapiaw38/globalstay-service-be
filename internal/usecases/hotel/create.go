@@ -10,7 +10,7 @@ import (
 
 type (
 	CreateUsecase interface {
-		Create(context.Context, domain.Hotel) (*CreateOutput, error)
+		Execute(context.Context, domain.Hotel) (*CreateOutput, error)
 	}
 
 	createUsecase struct {
@@ -28,7 +28,7 @@ func NewCreateUsecase(contextFactory appcontext.Factory) CreateUsecase {
 	}
 }
 
-func (u *createUsecase) Create(ctx context.Context, input domain.Hotel) (*CreateOutput, error) {
+func (u *createUsecase) Execute(ctx context.Context, input domain.Hotel) (*CreateOutput, error) {
 	app := u.contextFactory()
 
 	hotelID, err := uuid.NewUUID()

@@ -13,6 +13,7 @@ type (
 	ConfigurationService struct {
 		ServerConfig ServerConfig
 		NoSQLConfig  NoSQLConfig
+		GCP          GCPConfig
 	}
 
 	ServerConfig struct {
@@ -33,6 +34,10 @@ type (
 		DatabaseURI string
 		Database    string
 		Collection  string
+	}
+
+	GCPConfig struct {
+		MapsKey string
 	}
 )
 

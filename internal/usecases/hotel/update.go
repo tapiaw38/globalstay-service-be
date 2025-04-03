@@ -9,7 +9,7 @@ import (
 
 type (
 	UpdateUsecase interface {
-		Update(context.Context, string, domain.Hotel) (*UpdateOutput, error)
+		Execute(context.Context, string, domain.Hotel) (*UpdateOutput, error)
 	}
 
 	updateUsecase struct {
@@ -27,7 +27,7 @@ func NewUpdateUsecase(contextFactory appcontext.Factory) UpdateUsecase {
 	}
 }
 
-func (u *updateUsecase) Update(ctx context.Context, id string, input domain.Hotel) (*UpdateOutput, error) {
+func (u *updateUsecase) Execute(ctx context.Context, id string, input domain.Hotel) (*UpdateOutput, error) {
 	app := u.contextFactory()
 
 	_, err := app.Repositories.Hotel.Update(ctx, id, input)

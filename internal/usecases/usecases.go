@@ -12,10 +12,11 @@ type Usecases struct {
 }
 
 type Hotel struct {
-	CreateUsecase hotel.CreateUsecase
-	GetUsecase    hotel.GetUsecase
-	UpdateUsecase hotel.UpdateUsecase
-	ListUsecase   hotel.ListUsecase
+	CreateUsecase     hotel.CreateUsecase
+	GetUsecase        hotel.GetUsecase
+	UpdateUsecase     hotel.UpdateUsecase
+	ListUsecase       hotel.ListUsecase
+	ScanPlacesUsecase hotel.ScanPlacesUsecase
 }
 
 type Service struct {
@@ -29,10 +30,11 @@ type Service struct {
 func CreateUsecases(contextFactory appcontext.Factory) *Usecases {
 	return &Usecases{
 		Hotel: Hotel{
-			CreateUsecase: hotel.NewCreateUsecase(contextFactory),
-			GetUsecase:    hotel.NewGetUsecase(contextFactory),
-			UpdateUsecase: hotel.NewUpdateUsecase(contextFactory),
-			ListUsecase:   hotel.NewListUsecase(contextFactory),
+			CreateUsecase:     hotel.NewCreateUsecase(contextFactory),
+			GetUsecase:        hotel.NewGetUsecase(contextFactory),
+			UpdateUsecase:     hotel.NewUpdateUsecase(contextFactory),
+			ListUsecase:       hotel.NewListUsecase(contextFactory),
+			ScanPlacesUsecase: hotel.NewExecuteScanPlacesUsecase(contextFactory),
 		},
 		Service: Service{
 			ListUsecase:   service.NewListUsecase(contextFactory),

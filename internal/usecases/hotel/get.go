@@ -8,7 +8,7 @@ import (
 
 type (
 	GetUsecase interface {
-		Get(context.Context, string) (*GetOutput, error)
+		Execute(context.Context, string) (*GetOutput, error)
 	}
 
 	getUsecase struct {
@@ -26,7 +26,7 @@ func NewGetUsecase(contextFactory appcontext.Factory) GetUsecase {
 	}
 }
 
-func (u *getUsecase) Get(ctx context.Context, id string) (*GetOutput, error) {
+func (u *getUsecase) Execute(ctx context.Context, id string) (*GetOutput, error) {
 	app := u.contextFactory()
 
 	hotel, err := app.Repositories.Hotel.FindByID(ctx, id)

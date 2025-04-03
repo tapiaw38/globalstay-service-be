@@ -21,7 +21,7 @@ func NewUpdateHandler(usecase usecase.UpdateUsecase) gin.HandlerFunc {
 			return
 		}
 
-		updatedHotel, err := usecase.Update(c, id, toHotel(input))
+		updatedHotel, err := usecase.Execute(c, id, toHotel(input))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return

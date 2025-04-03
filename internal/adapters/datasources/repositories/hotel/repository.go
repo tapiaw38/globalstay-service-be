@@ -14,7 +14,6 @@ type (
 		FindAll(context.Context, FilterOptions) ([]domain.Hotel, error)
 		Update(context.Context, string, domain.Hotel) (string, error)
 		Delete(context.Context, string) (string, error)
-		FindServices(context.Context, string) ([]domain.Service, error)
 	}
 
 	repository struct {

@@ -4,6 +4,7 @@ type (
 	Hotel struct {
 		ID           string
 		UserID       string
+		PlaceID      string
 		Type         string
 		Name         string
 		Description  string
@@ -47,3 +48,9 @@ type (
 		Services      []Service
 	}
 )
+
+func (h Hotel) HasCompletePlaceInformation() bool {
+	return h.Name != "" &&
+		h.Latitude != 0 &&
+		h.Longitude != 0
+}

@@ -17,7 +17,7 @@ func NewGetHandler(usecase hotel.GetUsecase) gin.HandlerFunc {
 			return
 		}
 
-		hotel, err := usecase.Get(c, id)
+		hotel, err := usecase.Execute(c, id)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),

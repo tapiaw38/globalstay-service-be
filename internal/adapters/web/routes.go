@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web/handlers/hotel"
 	"github.com/tapiaw38/globalstay-service-be/internal/adapters/web/handlers/service"
+	hotel_job "github.com/tapiaw38/globalstay-service-be/internal/adapters/web/jobs/hotel"
 	"github.com/tapiaw38/globalstay-service-be/internal/usecases"
 )
 
@@ -26,4 +27,10 @@ func RegisterApplicationRoutes(app *gin.Engine, useCases *usecases.Usecases) {
 	routeGroup.GET("/services/:id", service.NewGetHandler(useCases.Service.GetUsecase))
 	routeGroup.PUT("/services/:id", service.NewUpdateHandler(useCases.Service.UpdateUsecase))
 	routeGroup.DELETE("/services/:id", service.NewDeleteHandler(useCases.Service.DeleteUsecase))
+}
+
+func RegisterJobRoutes(app *gin.Engine, useCases *usecases.Usecases) {
+	routeGroup := app.Group("/api/v1")
+
+	routeGroup.POST("/jobs/hotel/scan_places", hotel_job.NewScanPlacesJob(useCases.Hotel.ScanPlacesUsecase))
 }
