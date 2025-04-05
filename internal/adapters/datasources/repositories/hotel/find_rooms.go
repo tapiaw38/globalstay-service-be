@@ -9,7 +9,7 @@ import (
 
 func (r *repository) FindRoomsByHotelID(ctx context.Context, hotelID string) ([]domain.Room, error) {
 	var hotelDocument HotelDocument
-	err := r.client.FindOne(ctx, bson.M{"hotel_id": hotelID}).Decode(&hotelDocument)
+	err := r.client.FindOne(ctx, bson.M{"_id": hotelID}).Decode(&hotelDocument)
 	if err != nil {
 		return nil, err
 	}
@@ -19,7 +19,6 @@ func (r *repository) FindRoomsByHotelID(ctx context.Context, hotelID string) ([]
 	rooms := make([]domain.Room, len(hotels.Rooms))
 	for i, room := range hotels.Rooms {
 		rooms[i] = domain.Room{
-			ID:            room.ID,
 			Number:        room.Number,
 			Type:          room.Type,
 			PricePerNight: room.PricePerNight,

@@ -38,7 +38,6 @@ type (
 	}
 
 	Room struct {
-		ID            string
 		Number        string
 		Type          string
 		PersonCount   int

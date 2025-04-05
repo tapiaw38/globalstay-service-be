@@ -30,6 +30,14 @@ func NewUpdateUsecase(contextFactory appcontext.Factory) UpdateUsecase {
 func (u *updateUsecase) Execute(ctx context.Context, id string, input domain.Hotel) (*UpdateOutput, error) {
 	app := u.contextFactory()
 
+	roomsCurrent, err := app.Repositories.Hotel.FindRoomsByHotelID(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+
+	updatedRooms := updateHotelRooms(roomsCurrent, input.Rooms)
+	input.Rooms = updatedRooms
+
 	if _, err := app.Repositories.Hotel.Update(ctx, id, input); err != nil {
 		return nil, err
 	}
@@ -44,20 +52,21 @@ func (u *updateUsecase) Execute(ctx context.Context, id string, input domain.Hot
 	}, nil
 }
 
-// func updateHotelServices(services []domain.Service, input domain.Hotel) []domain.Service {
-// 	existingServicesMap := make(map[string]domain.Service)
-// 	for _, service := range services {
-// 		existingServicesMap[service.ID] = service
-// 	}
+func updateHotelRooms(existingRooms []domain.Room, inputRooms []domain.Room) []domain.Room {
+	existingRoomsMap := make(map[string]domain.Room)
 
-// 	for _, inputService := range input.Services {
-// 		existingServicesMap[inputService.ID] = inputService
-// 	}
+	for _, room := range existingRooms {
+		existingRoomsMap[room.Number] = room
+	}
 
-// 	var updatedServices []domain.Service
-// 	for _, service := range existingServicesMap {
-// 		updatedServices = append(updatedServices, service)
-// 	}
+	for _, inputRoom := range inputRooms {
+		existingRoomsMap[inputRoom.Number] = inputRoom
+	}
 
-// 	return updatedServices
-// }
+	var updatedRooms []domain.Room
+	for _, room := range existingRoomsMap {
+		updatedRooms = append(updatedRooms, room)
+	}
+
+	return updatedRooms
+}
