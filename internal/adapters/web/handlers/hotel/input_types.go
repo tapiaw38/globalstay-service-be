@@ -24,19 +24,16 @@ type (
 	RoomInput struct {
 		Number        string         `json:"number,omitempty"`
 		Type          string         `json:"type,omitempty"`
-		IsOccupied    bool           `json:"is_occupied,omitempty"`
 		PersonCount   int            `json:"person_count,omitempty"`
-		GuestName     string         `json:"guest_name,omitempty"`
 		PricePerNight float64        `json:"price_per_night,omitempty"`
 		Pictures      []string       `json:"pictures,omitempty"`
 		Services      []ServiceInput `json:"services,omitempty"`
-		HotelID       string         `json:"hotel_id,omitempty"`
 	}
 
 	ServiceInput struct {
 		Name        string   `json:"name,omitempty"`
 		Description string   `json:"description,omitempty"`
-		Pictures    []string `json:"pictures,omitempty"`
+		Icons       []string `json:"pictures,omitempty"`
 	}
 )
 
@@ -74,9 +71,7 @@ func toRoom(input RoomInput) domain.Room {
 	return domain.Room{
 		Number:        input.Number,
 		Type:          input.Type,
-		IsOccupied:    input.IsOccupied,
 		PersonCount:   input.PersonCount,
-		GuestName:     input.GuestName,
 		PricePerNight: input.PricePerNight,
 		Pictures:      input.Pictures,
 		Services:      services,
@@ -87,6 +82,6 @@ func toService(input ServiceInput) domain.Service {
 	return domain.Service{
 		Name:        input.Name,
 		Description: input.Description,
-		Pictures:    input.Pictures,
+		Icons:       input.Icons,
 	}
 }

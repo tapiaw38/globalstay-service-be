@@ -25,22 +25,18 @@ type (
 	}
 
 	RoomDocument struct {
-		ID            string            `bson:"_id,omitempty"`
 		Number        string            `bson:"number,omitempty"`
 		Type          string            `bson:"type,omitempty"`
-		IsOccupied    bool              `bson:"is_occupied,omitempty"`
 		PersonCount   int               `bson:"person_count,omitempty"`
-		GuestName     string            `bson:"guest_name,omitempty"`
 		PricePerNight float64           `bson:"price_per_night,omitempty"`
 		Pictures      []string          `bson:"pictures,omitempty"`
 		Services      []ServiceDocument `bson:"services,omitempty"`
 	}
 
 	ServiceDocument struct {
-		ID          string   `bson:"_id,omitempty"`
 		Name        string   `bson:"name,omitempty"`
 		Description string   `bson:"description,omitempty"`
-		Pictures    []string `bson:"pictures,omitempty"`
+		Icons       []string `bson:"icons,omitempty"`
 	}
 
 	ReviewDocument struct {

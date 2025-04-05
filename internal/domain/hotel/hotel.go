@@ -28,7 +28,7 @@ type (
 		ID          string
 		Name        string
 		Description string
-		Pictures    []string
+		Icons       []string
 	}
 
 	Review struct {
@@ -41,9 +41,7 @@ type (
 		ID            string
 		Number        string
 		Type          string
-		IsOccupied    bool
 		PersonCount   int
-		GuestName     string
 		PricePerNight float64
 		Pictures      []string
 		Services      []Service
@@ -53,5 +51,6 @@ type (
 func (h Hotel) HasCompletePlaceInformation() bool {
 	return h.Name != "" &&
 		h.Latitude != 0 &&
-		h.Longitude != 0
+		h.Longitude != 0 &&
+		len(h.Pictures) > 0
 }

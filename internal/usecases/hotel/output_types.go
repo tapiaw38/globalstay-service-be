@@ -24,22 +24,18 @@ type (
 	}
 
 	RoomOutputData struct {
-		ID            string              `json:"id"`
 		Number        string              `json:"number"`
 		Type          string              `json:"type"`
-		IsOccupied    bool                `json:"is_occupied"`
 		PersonCount   int                 `json:"person_count"`
-		GuestName     string              `json:"guest_name"`
 		PricePerNight float64             `json:"price_per_night"`
 		Pictures      []string            `json:"pictures"`
 		Services      []ServiceOutputData `json:"services"`
 	}
 
 	ServiceOutputData struct {
-		ID          string   `json:"id"`
 		Name        string   `json:"name"`
 		Description string   `json:"description"`
-		Pictures    []string `json:"pictures"`
+		Icons       []string `json:"icons"`
 	}
 
 	ReviewOutputData struct {
@@ -88,19 +84,16 @@ func toRoomOutputData(room domain.Room) RoomOutputData {
 	services := make([]ServiceOutputData, len(room.Services))
 	for i, service := range room.Services {
 		services[i] = toServiceOutputData(service)
-		copy(services[i].Pictures, service.Pictures)
+		copy(services[i].Icons, service.Icons)
 	}
 
 	pictures := make([]string, len(room.Pictures))
 	copy(pictures, room.Pictures)
 
 	return RoomOutputData{
-		ID:            room.ID,
 		Number:        room.Number,
 		Type:          room.Type,
-		IsOccupied:    room.IsOccupied,
 		PersonCount:   room.PersonCount,
-		GuestName:     room.GuestName,
 		PricePerNight: room.PricePerNight,
 		Pictures:      pictures,
 		Services:      services,
@@ -109,10 +102,9 @@ func toRoomOutputData(room domain.Room) RoomOutputData {
 
 func toServiceOutputData(service domain.Service) ServiceOutputData {
 	return ServiceOutputData{
-		ID:          service.ID,
 		Name:        service.Name,
 		Description: service.Description,
-		Pictures:    service.Pictures,
+		Icons:       service.Icons,
 	}
 }
 

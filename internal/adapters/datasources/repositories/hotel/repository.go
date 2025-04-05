@@ -14,6 +14,9 @@ type (
 		FindAll(context.Context, FilterOptions) ([]domain.Hotel, error)
 		Update(context.Context, string, domain.Hotel) (string, error)
 		Delete(context.Context, string) (string, error)
+		FindRoomsByHotelID(ctx context.Context, hotelID string) ([]domain.Room, error)
+		FindServicesRoomByHotelID(ctx context.Context, hotelID string) ([]domain.Service, error)
+		UpdateRoomByHotelID(ctx context.Context, hotelID string, room domain.Room) (*domain.Room, error)
 	}
 
 	repository struct {

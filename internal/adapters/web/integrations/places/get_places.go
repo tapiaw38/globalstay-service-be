@@ -25,6 +25,13 @@ type (
 	}
 )
 
+func (p *Place) CompleteMinimumPlaceInformation() bool {
+	return p.Name != "" &&
+		p.Latitude != 0 &&
+		p.Longitude != 0 &&
+		len(p.Photos) > 0
+}
+
 func (i integration) GetPlaces(latitude, longitude float64, radius uint, types maps.PlaceType) ([]Place, error) {
 	if radius == 0 {
 		radius = googleMapsRadius

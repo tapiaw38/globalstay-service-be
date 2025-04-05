@@ -19,6 +19,7 @@ type Hotel struct {
 	UpdateUsecase     hotel.UpdateUsecase
 	ListUsecase       hotel.ListUsecase
 	ScanPlacesUsecase hotel.ScanPlacesUsecase
+	UpdateRoomUsecase hotel.UpdateRoomUsecase
 }
 
 type Location struct {
@@ -43,6 +44,7 @@ func CreateUsecases(contextFactory appcontext.Factory) *Usecases {
 			UpdateUsecase:     hotel.NewUpdateUsecase(contextFactory),
 			ListUsecase:       hotel.NewListUsecase(contextFactory),
 			ScanPlacesUsecase: hotel.NewExecuteScanPlacesUsecase(contextFactory),
+			UpdateRoomUsecase: hotel.NewUpdateRoomUsecase(contextFactory),
 		},
 		Location: Location{
 			CreateUsecase: location.NewCreateUsecase(contextFactory),

@@ -22,20 +22,16 @@ func marshal(hotel domain_hotel.Hotel) HotelDocument {
 		services := make([]ServiceDocument, len(room.Services))
 		for j, service := range room.Services {
 			services[j] = ServiceDocument{
-				ID:          service.ID,
 				Name:        service.Name,
 				Description: service.Description,
-				Pictures:    service.Pictures,
+				Icons:       service.Icons,
 			}
 		}
 
 		rooms[i] = RoomDocument{
-			ID:            room.ID,
 			Number:        room.Number,
 			Type:          room.Type,
-			IsOccupied:    room.IsOccupied,
 			PersonCount:   room.PersonCount,
-			GuestName:     room.GuestName,
 			PricePerNight: room.PricePerNight,
 			Pictures:      room.Pictures,
 			Services:      services,
@@ -82,20 +78,16 @@ func unmarshal(hotelDocument HotelDocument) domain_hotel.Hotel {
 		services := make([]domain_hotel.Service, len(room.Services))
 		for j, service := range room.Services {
 			services[j] = domain_hotel.Service{
-				ID:          service.ID,
 				Name:        service.Name,
 				Description: service.Description,
-				Pictures:    service.Pictures,
+				Icons:       service.Icons,
 			}
 		}
 
 		rooms[i] = domain_hotel.Room{
-			ID:            room.ID,
 			Number:        room.Number,
 			Type:          room.Type,
-			IsOccupied:    room.IsOccupied,
 			PersonCount:   room.PersonCount,
-			GuestName:     room.GuestName,
 			PricePerNight: room.PricePerNight,
 			Pictures:      room.Pictures,
 			Services:      services,

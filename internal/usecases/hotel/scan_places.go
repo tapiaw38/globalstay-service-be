@@ -58,6 +58,25 @@ func (u *scanPlacesUsecase) Execute(ctx context.Context) error {
 
 		for _, place := range places {
 			if _, ok := existingHotelsMap[place.ID]; ok {
+
+				updatedHotel := existingHotelsMap[place.ID]
+
+				if !updatedHotel.HasCompletePlaceInformation() {
+					updatedHotel.Name = place.Name
+					updatedHotel.Longitude = place.Longitude
+					updatedHotel.Latitude = place.Latitude
+					updatedHotel.Pictures = place.Photos
+					updatedHotel.Address = place.FormattedAddress
+					updatedHotel.LocationName = location.Name
+				}
+
+				if _, err := app.Repositories.Hotel.Update(ctx, updatedHotel.ID, updatedHotel); err != nil {
+					log.Printf("Error updating hotel: %v", err)
+					continue
+				}
+
+				log.Printf("Hotel updated: %s", place.ID)
+
 				log.Printf("Hotel already exists: %s", place.ID)
 				continue
 			}
